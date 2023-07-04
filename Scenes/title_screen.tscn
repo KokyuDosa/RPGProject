@@ -7,7 +7,7 @@
 [node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("1_fb124")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="TitleImage" type="Sprite2D" parent="."]
 position = Vector2(598, 286)
 scale = Vector2(0.434287, 0.434287)
 texture = ExtResource("1_4hu2m")

@@ -3,3 +3,4 @@ extends Node
 
 
 signal start_game
+signal health_update(health_delta)

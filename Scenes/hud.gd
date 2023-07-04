@@ -1,9 +1,13 @@
 extends CanvasLayer
 
+var health: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	health = 0
+	$HPValue.text = str(health)
 	Events.start_game.connect(show_hud)
+	Events.health_update.connect(health_update_hud)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,3 +27,13 @@ func show_hud():
 func hide_hud():
 	$HPValue.hide()
 	$HP.hide()
+
+func health_update_hud(health_delta):
+	health += health_delta
+	$HPValue.text = str(health)
+	#$HPValue.text = str($)
+	
+
+
+func _on_add_hp_pressed():
+	Events.emit_signal("health_update", 10)

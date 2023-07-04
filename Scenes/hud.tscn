@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dauwjxbrerso7"]
+[gd_scene load_steps=4 format=3 uid="uid://dauwjxbrerso7"]
 
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="1_5x4v0"]
 [ext_resource type="FontFile" uid="uid://dj3u8jvmtg2j5" path="res://Fonts/Kenney High.ttf" id="1_gxkgs"]
+[ext_resource type="Theme" uid="uid://bwsk7cxt8ainp" path="res://Themes/basicTheme.tres" id="3_0ttfi"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_5x4v0")
@@ -28,3 +29,20 @@ grow_horizontal = 0
 theme_override_fonts/font = ExtResource("1_gxkgs")
 theme_override_font_sizes/font_size = 48
 text = "HP :"
+
+[node name="AddHp" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -27.5
+offset_right = 65.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_0ttfi")
+text = "HP + 10"
+
+[connection signal="pressed" from="AddHp" to="." method="_on_add_hp_pressed"]
