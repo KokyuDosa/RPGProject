@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cf0mdrf6eurdk"]
 
 [ext_resource type="Texture2D" uid="uid://bwoyisscw0l2u" path="res://Assets/Player64.png" id="1_ltc1o"]
-[ext_resource type="PackedScene" uid="uid://bbpyqoouwiq7m" path="res://Scripts/Components/health_component.tscn" id="2_ehj3c"]
+[ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="2_0r5cu"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="2_fij3a"]
 
 [node name="Player" type="Sprite2D"]
+z_index = 5
 position = Vector2(32, 32)
 texture = ExtResource("1_ltc1o")
 script = ExtResource("2_fij3a")
@@ -12,5 +13,5 @@ metadata/_edit_group_ = true
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_ehj3c")]
-max_health = 50.0
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("2_0r5cu")
