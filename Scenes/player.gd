@@ -12,4 +12,4 @@ func _process(_delta):
 
 
 func initial_position():
-	self.position = (Vector2i(5,5) * GameLogic.TILE_SIZE) + (Vector2i.ONE*GameLogic.TILE_SIZE/2) 
+	position = (GameLogic.player_pos * GameLogic.TILE_SIZE) + (Vector2i.ONE*GameLogic.TILE_SIZE/2) 

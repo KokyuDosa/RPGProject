@@ -11,6 +11,12 @@ Game State Variables - START
 var player_pos: Vector2i = Vector2i.ZERO
 
 ##### MAP STATE #####
+# Conceivably I could refact this into:
+# 1) A row-major 1d array representing the 2d coordinate system. This would be done in all functions
+#    that initialize these values. A simple lookup and translation function could be implemented.
+# 2) A single array where the entries are a dictionary of the values a tile position might have.
+#    Potentially this could make saving and loading easier if it was all in dict format.
+
 # Each of the three following variables is instantiated as a 2d array representing the current level
 # map. Entries are from (0, 0) and include Z(nonneg), the set of non-negative integers. A map will
 # never have tiles at a position below (0, 0). The entries for these 2d array entries are booleans.
@@ -23,7 +29,7 @@ var occupiable_tiles: Array = []	# True if the tile can be occupied by an entity
 # Default map size of 1x1, always initialized to real map size for a given level. Should be set when
 # a level enters the scene tree. Setting in this way should only occur when the player shifts to a
 # new level.
-var map_size: Vector2 = Vector2.ONE
+var map_size: Vector2i = Vector2i.ONE
 
 
 """
@@ -47,17 +53,10 @@ tileset data for the level and set any non-transparent tiles to false.
 
 This can then be referenced in the form of transparent_tiles[x][y] to get the transparency boolean
 for usage with FOV and other necessary functions.
+
+tiles: the tilemap for the a level, should be included with every level
 """
-func initialize_transparent_tiles(tiles):
-	# Initialize 2d array to true
-	for x in map_size.x:
-		var transparent_row = []
-		
-		for y in map_size.y:
-			transparent_row.push_back(true)
-		
-		transparent_tiles.push_back(transparent_row)
-	
+func initialize_transparent_tiles(tiles) -> void:
 	# Set transparency based on custom tile data.
 	for x in map_size.x:
 		for y in map_size.y:
@@ -70,11 +69,26 @@ func initialize_transparent_tiles(tiles):
 				break
 
 
+func initialize_occupiable_tiles(tiles) -> void:
+	# Set occupiable based on custom tile data.
+	for x in map_size.x:
+		for y in map_size.y:
+			var tile_pos = Vector2i(x, y)
+			var data = tiles.get_cell_tile_data(0, tile_pos)
+			if data:
+				occupiable_tiles[x][y] = data.get_custom_data("_transparent")
+			else:
+				print("Required custom tile data: '_transparent' not found.")
+				break
+
+
+	
 
 ##### MOVEMENT #####
 func try_move(dx, dy) -> void:
 	var x = player_pos.x + dx
 	var y = player_pos.y + dy
+	
 	
 
 
@@ -89,3 +103,23 @@ func is_occupiable(x, y) -> bool:
 
 func tile_to_pixel_center(x, y):
 	return Vector2((x + 0.5) * TILE_SIZE, (y + 0.5) * TILE_SIZE)
+
+
+# Initialize all arrays to their respective default values
+func initialize_arrays():
+	for x in map_size.x:
+		var visible_row = []
+		var explored_row = []
+		var transparent_row = []
+		var occupiable_row = []
+		
+		for y in map_size.y:
+			visible_row.push_back(false)
+			explored_row.push_back(false)
+			transparent_row.push_back(true)
+			occupiable_row.push_back(true)
+		
+		visible_tiles.push_back(visible_row)
+		explored_tiles.push_back(explored_row)
+		transparent_tiles.push_back(transparent_row)
+		occupiable_tiles.push_back(occupiable_row)

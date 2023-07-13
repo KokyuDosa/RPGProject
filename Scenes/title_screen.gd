@@ -19,9 +19,9 @@ func _on_button_pressed():
 	add_sibling(simultaneous_scene)
 	print("added level 1")
 	
-	var player_pos = simultaneous_scene.initial_player_pos
-	var player_scene = load("res://Scenes/player.tscn").instantiate()
-	add_sibling(player_scene)
+	#var player_pos = simultaneous_scene.initial_player_pos
+	#var player_scene = load("res://Scenes/player.tscn").instantiate()
+	#add_sibling(player_scene)
 	
 	get_tree().get_root().print_tree_pretty()
 	

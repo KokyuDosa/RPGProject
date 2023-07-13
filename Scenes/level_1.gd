@@ -10,7 +10,13 @@ func _ready():
 	# Pass initialization parameters to game manager
 	GameLogic.player_pos = initial_player_pos
 	GameLogic.map_size = MAP_SIZE
+	GameLogic.initialize_arrays()
 	GameLogic.initialize_transparent_tiles(tiles)
+	GameLogic.initialize_occupiable_tiles(tiles)
+	
+	
+	var player_scene = load("res://Scenes/player.tscn").instantiate()
+	add_child(player_scene)
 
 
 
@@ -23,11 +29,19 @@ func _input(event):
 		print_tile_info()
 		var mouse_pos = get_global_mouse_position()
 		var tile_position = tiles.local_to_map(mouse_pos)
-		print("mouse click at: ", tile_position)
 		
+		print("mouse click at: ", tile_position)
 		print("\nTile Data:")
 		print(GameLogic.transparent_tiles[tile_position.x][tile_position.y])
 		
+	elif event.is_action_pressed("move_down"):
+		Events.emit_signal("position_update", Vector2i(0,1))
+	elif event.is_action_pressed("move_up"):
+		Events.emit_signal("position_update", Vector2i(0,-1))
+	elif event.is_action_pressed("move_left"):
+		Events.emit_signal("position_update", Vector2i(-1,0))
+	elif event.is_action_pressed("move_right"):
+		Events.emit_signal("position_update", Vector2i(1,0))
 
 
 func print_tile_info():
