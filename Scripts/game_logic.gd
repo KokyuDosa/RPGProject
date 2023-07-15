@@ -9,6 +9,9 @@ Game State Variables - START
 ##### PLAYER #####
 # Player position on the loaded map, default to (0,0)
 var player_pos: Vector2i = Vector2i.ZERO
+# Player health parameters for hud
+var player_max_health: int = 1
+var player_current_health: int = 1
 
 ##### MAP STATE #####
 # Conceivably I could refact this into:

@@ -31,18 +31,17 @@ theme_override_font_sizes/font_size = 48
 text = "HP :"
 
 [node name="AddHp" type="Button" parent="."]
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -65.0
-offset_top = -27.5
+offset_top = -55.0
 offset_right = 65.0
-offset_bottom = 27.5
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme = ExtResource("3_0ttfi")
-text = "HP + 10"
+text = "HP - 5"
 
-[connection signal="pressed" from="AddHp" to="." method="_on_add_hp_pressed"]
+[connection signal="button_down" from="AddHp" to="." method="_on_add_hp_button_down"]

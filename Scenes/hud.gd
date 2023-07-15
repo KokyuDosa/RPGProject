@@ -12,7 +12,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	$HPValue.text = str(GameLogic.player_current_health)
 
 
 func show_hud():
@@ -31,9 +31,8 @@ func hide_hud():
 func health_update_hud(health_delta):
 	health += health_delta
 	$HPValue.text = str(health)
-	#$HPValue.text = str($)
-	
 
 
-func _on_add_hp_pressed():
-	Events.emit_signal("health_update", 10)
+
+func _on_add_hp_button_down():
+	Events.emit_signal("health_update", -5)

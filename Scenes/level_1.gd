@@ -17,6 +17,17 @@ func _ready():
 	
 	var player_scene = load("res://Scenes/player.tscn").instantiate()
 	add_child(player_scene)
+	player_scene.initial_position()
+	
+	# Idiom for checking if a child scene has the function I want to use.
+	# In this case we're initializing the position of the player in the player node. I'm not sure
+	# if there is a way to do this with some sort of constructor since apparently _init() doesn't
+	# act as an object constructor?
+	var player_children = player_scene.get_children()
+	for player_child in player_children:
+		if player_child.has_method("set_current_position"):
+			player_child.set_current_position(initial_player_pos)
+
 
 
 

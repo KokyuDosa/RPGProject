@@ -3,7 +3,8 @@ extends Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	initial_position()
+	GameLogic.player_max_health = $HealthComponent.max_health
+	GameLogic.player_current_health = $HealthComponent.current_health
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

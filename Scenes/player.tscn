@@ -1,9 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://cf0mdrf6eurdk"]
+[gd_scene load_steps=9 format=3 uid="uid://cf0mdrf6eurdk"]
 
 [ext_resource type="Texture2D" uid="uid://bwoyisscw0l2u" path="res://Assets/Player64.png" id="1_ltc1o"]
 [ext_resource type="Script" path="res://Scripts/Components/HealthComponent.gd" id="2_0r5cu"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="2_fij3a"]
 [ext_resource type="Script" path="res://Scripts/Components/MovementComponent.gd" id="4_c87t2"]
+[ext_resource type="Script" path="res://DamageReceiverComponent.gd" id="5_sp0h2"]
+[ext_resource type="Theme" uid="uid://bwsk7cxt8ainp" path="res://Themes/basicTheme.tres" id="6_1bwo7"]
+[ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="7_kxud6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5gcx"]
+bg_color = Color(0.886275, 0, 0.184314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="Player" type="Sprite2D"]
 z_index = 5
@@ -16,6 +30,23 @@ metadata/_edit_group_ = true
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("2_0r5cu")
+max_health = 50.0
 
 [node name="MovementComponent" type="Node2D" parent="."]
 script = ExtResource("4_c87t2")
+
+[node name="DamageReceiverComponent" type="Node2D" parent="." node_paths=PackedStringArray("healthcomponent")]
+script = ExtResource("5_sp0h2")
+healthcomponent = NodePath("../HealthComponent")
+
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("healthcomponent")]
+offset_left = -32.0
+offset_top = -40.0
+offset_right = 32.0
+offset_bottom = -24.0
+scale = Vector2(1, 0.5)
+theme = ExtResource("6_1bwo7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_q5gcx")
+show_percentage = false
+script = ExtResource("7_kxud6")
+healthcomponent = NodePath("../HealthComponent")
