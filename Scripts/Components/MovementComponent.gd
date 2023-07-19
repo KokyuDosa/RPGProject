@@ -26,10 +26,9 @@ func try_move(position_delta: Vector2i):
 	var x = current_pos.x + position_delta.x
 	var y = current_pos.y + position_delta.y
 	
-	if position_delta.x < 0:
-		if not get_parent().flip_h:
-			get_parent().flip_h = true
-	elif get_parent().flip_h:
+	if position_delta.x < 0 and !get_parent().flip_h :
+		get_parent().flip_h = true
+	elif position_delta.x > 0 and get_parent().flip_h:
 		get_parent().flip_h = false
 	
 	# Check if tile to be moved into is occupiable.
@@ -40,7 +39,10 @@ func try_move(position_delta: Vector2i):
 		
 		# Update current position to tile entity is trying to move into
 		current_pos = Vector2i(x, y)
-		GameLogic.player_pos = Vector2i(x, y)
+		# Special case where if this attached to the player then we update the player position in
+		# in the global game variables. Probably not necessary with some refactoring.
+		if get_parent().name == "Player":
+			GameLogic.player_pos = Vector2i(x, y)
 		return true
 	else:
 		return false

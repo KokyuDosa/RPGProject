@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://7le1ba6txhme"]
+
+[ext_resource type="Script" path="res://Scripts/Components/DamageReceiverComponent.gd" id="1_26re2"]
+
+[node name="DamageReceiverComponent" type="Node2D" node_paths=PackedStringArray("healthcomponent")]
+script = ExtResource("1_26re2")
+healthcomponent = NodePath("../HealthComponent")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

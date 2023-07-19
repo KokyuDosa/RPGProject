@@ -35,4 +35,5 @@ func health_update_hud(health_delta):
 
 
 func _on_add_hp_button_down():
+	print(get_tree().get_nodes_in_group("enemies"))
 	Events.emit_signal("health_update", -5)

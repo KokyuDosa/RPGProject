@@ -19,6 +19,23 @@ func _ready():
 	add_child(player_scene)
 	player_scene.initial_position()
 	
+	var mob = load("res://Scenes/fire_creature.tscn")
+	
+
+	for i in range(1,3):
+		var entity_pos = Vector2(i+1,i)
+		GameLogic.spawn_entity(self, load("res://Scenes/fire_creature.tscn"), entity_pos, "enemies")
+		GameLogic.occupiable_tiles[i+1][i] = false
+	
+#	var mult = 1
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		print(enemy.health_component.get_current_health())
+		print(GameLogic.pixel_to_tile(enemy.position))
+		
+
+	#print(get_tree().get_nodes_in_group("enemies"))
+	
 	# Idiom for checking if a child scene has the function I want to use.
 	# In this case we're initializing the position of the player in the player node. I'm not sure
 	# if there is a way to do this with some sort of constructor since apparently _init() doesn't

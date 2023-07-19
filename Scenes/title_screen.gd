@@ -17,7 +17,7 @@ func _on_button_pressed():
 	$TitleImage.hide()
 	$NewGameButton.hide()
 	add_sibling(simultaneous_scene)
-	print("added level 1")
+
 	
 	#var player_pos = simultaneous_scene.initial_player_pos
 	#var player_scene = load("res://Scenes/player.tscn").instantiate()

@@ -3,6 +3,7 @@ class_name DamageReceiverComponent
 
 @export var healthcomponent: HealthComponent
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Events.health_update.connect(apply_damage)
