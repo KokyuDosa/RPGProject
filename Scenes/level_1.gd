@@ -16,8 +16,11 @@ func _ready():
 	
 	
 	var player_scene = load("res://Scenes/player.tscn").instantiate()
-	add_child(player_scene)
 	player_scene.initial_position()
+
+	add_child(player_scene)
+	player_scene.health_component.initialize_health(250)
+
 	
 	var mob = load("res://Scenes/fire_creature.tscn")
 	
@@ -25,7 +28,7 @@ func _ready():
 	for i in range(1,3):
 		var entity_pos = Vector2(i+1,i)
 		GameLogic.spawn_entity(self, load("res://Scenes/fire_creature.tscn"), entity_pos, "enemies")
-		GameLogic.occupiable_tiles[i+1][i] = false
+		#GameLogic.occupiable_tiles[i+1][i] = false
 	
 #	var mult = 1
 	var enemies = get_tree().get_nodes_in_group("enemies")

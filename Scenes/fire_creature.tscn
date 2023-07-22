@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2bbpnd8e0sjl"]
+[gd_scene load_steps=7 format=3 uid="uid://b2bbpnd8e0sjl"]
 
 [ext_resource type="Texture2D" uid="uid://c50md3r0vcgv1" path="res://Assets/FireCreature.png" id="1_v8rpi"]
 [ext_resource type="Script" path="res://Scenes/fire_creature.gd" id="1_wbndy"]
@@ -8,8 +8,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bioxl"]
 size = Vector2(58, 59)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7gmfc"]
+size = Vector2(62, 62)
+
 [node name="FireCreature" type="CharacterBody2D"]
 position = Vector2(32, 32)
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_wbndy")
 metadata/_edit_group_ = true
 
@@ -21,8 +26,12 @@ texture = ExtResource("1_v8rpi")
 [node name="HitBoxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_3r8xd")]
 health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+[node name="HitBox" type="CollisionShape2D" parent="HitBoxComponent"]
+visible = false
 position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_bioxl")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7gmfc")
 
 [connection signal="input_event" from="HitBoxComponent" to="." method="_on_hit_box_component_input_event"]

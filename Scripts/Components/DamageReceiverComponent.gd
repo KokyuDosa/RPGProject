@@ -1,7 +1,7 @@
 extends Node2D
 class_name DamageReceiverComponent
 
-@export var healthcomponent: HealthComponent
+@export var health_component: HealthComponent
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,5 +15,5 @@ func _process(_delta):
 
 
 func apply_damage(damage_amt: int) -> void:
-	healthcomponent.update_current_health(damage_amt)
+	health_component.update_current_health(damage_amt)
 	

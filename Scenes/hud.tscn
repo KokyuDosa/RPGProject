@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dauwjxbrerso7"]
+[gd_scene load_steps=6 format=3 uid="uid://dauwjxbrerso7"]
 
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="1_5x4v0"]
 [ext_resource type="FontFile" uid="uid://dj3u8jvmtg2j5" path="res://Fonts/Kenney High.ttf" id="1_gxkgs"]
 [ext_resource type="Theme" uid="uid://bwsk7cxt8ainp" path="res://Themes/basicTheme.tres" id="3_0ttfi"]
+[ext_resource type="Texture2D" uid="uid://bpbfxa7707hbb" path="res://Assets/tile_highlight.png" id="4_gtewx"]
+[ext_resource type="Script" path="res://Scenes/MouseCursor.gd" id="5_ydbii"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_5x4v0")
@@ -43,5 +45,10 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_0ttfi")
 text = "HP - 5"
+
+[node name="MouseCursor" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.34902)
+texture = ExtResource("4_gtewx")
+script = ExtResource("5_ydbii")
 
 [connection signal="button_down" from="AddHp" to="." method="_on_add_hp_button_down"]

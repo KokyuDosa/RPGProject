@@ -3,6 +3,9 @@ class_name MovementComponent
 
 @export var current_pos: Vector2i
 
+# Needs the sprite so i can flip_h it
+@export var character_sprite: Sprite2D
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,10 +29,13 @@ func try_move(position_delta: Vector2i):
 	var x = current_pos.x + position_delta.x
 	var y = current_pos.y + position_delta.y
 	
-	if position_delta.x < 0 and !get_parent().flip_h :
-		get_parent().flip_h = true
-	elif position_delta.x > 0 and get_parent().flip_h:
-		get_parent().flip_h = false
+	if determine_collision(x, y):
+		return false
+	
+	if position_delta.x < 0 and !character_sprite.flip_h :
+		character_sprite.flip_h = true
+	elif position_delta.x > 0 and character_sprite.flip_h:
+		character_sprite.flip_h = false
 	
 	# Check if tile to be moved into is occupiable.
 	if GameLogic.occupiable_tiles[x][y]:
@@ -47,6 +53,32 @@ func try_move(position_delta: Vector2i):
 	else:
 		return false
 
+
+"""
+determine_collision
+
+This function takes in the new location that the entity is attempting to move into and returns
+true if there is a collidable object in this location, false if not.
+"""
+func determine_collision(new_x: int, new_y: int) -> bool:
+	print("Entered determine collision")
+	var space_state = get_world_2d().direct_space_state
+	
+	# The PhysicsRayQueryParameters2D.create creates the parameters to be sent to an intersect_ray
+	# function call. The third parameter in the create() is the bitmask for the collidable objects.
+	# I should probably change this to an enum for which objects to check for since I can use bit
+	# addition to simply say something like ENEMY + WALL and the collision detection will check for
+	# that. Additionally I could dictate the collision parameters based on equipment or abilities.
+	var query = PhysicsRayQueryParameters2D.create(
+		GameLogic.tile_to_pixel_center(current_pos.x, current_pos.y), GameLogic.tile_to_pixel_center(new_x,new_y), 2
+		)
+	var result = space_state.intersect_ray(query)
+	print(query)
+	if result.is_empty():
+		
+		return false
+	else:
+		return true
 
 func position_transform(position_delta):
 	if try_move(position_delta):

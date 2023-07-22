@@ -1,4 +1,6 @@
-extends Sprite2D
+extends CharacterBody2D
+
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,3 +16,4 @@ func _process(_delta):
 
 func initial_position():
 	position = (GameLogic.player_pos * GameLogic.TILE_SIZE) + (Vector2i.ONE*GameLogic.TILE_SIZE/2) 
+
